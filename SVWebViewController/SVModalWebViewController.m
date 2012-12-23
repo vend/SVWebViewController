@@ -39,6 +39,7 @@
     [super viewWillAppear:NO];
     
     self.navigationBar.tintColor = self.barsTintColor;
+    [self.navigationBar setBackgroundImage:self.barsBackgroundImage forBarMetrics:UIBarMetricsDefault];
 }
 
 - (void)setAvailableActions:(SVWebViewControllerAvailableActions)newAvailableActions {

@@ -238,6 +238,13 @@
         UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, toolbarWidth, 44.0f)];
         toolbar.items = items;
         toolbar.tintColor = self.navigationController.navigationBar.tintColor;
+        
+        if ([self.navigationController.navigationBar backgroundImageForBarMetrics:UIBarMetricsDefault]) {
+            [toolbar setBackgroundImage:[self.navigationController.navigationBar backgroundImageForBarMetrics:UIBarMetricsDefault]
+                     forToolbarPosition:UIToolbarPositionAny
+                             barMetrics:UIBarMetricsDefault];
+        }
+        
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:toolbar];
     } 
     
