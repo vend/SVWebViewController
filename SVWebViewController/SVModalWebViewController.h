@@ -28,5 +28,6 @@ typedef NSUInteger SVWebViewControllerAvailableActions;
 @property (nonatomic, strong) UIColor *barsTintColor;
 @property (nonatomic, strong) UIImage *barsBackgroundImage;
 @property (nonatomic, readwrite) SVWebViewControllerAvailableActions availableActions;
+@property (nonatomic, weak) id<UIWebViewDelegate> webViewDelegate;
 
 @end

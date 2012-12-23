@@ -114,6 +114,21 @@
     return pageActionSheet;
 }
 
+struct {
+    unsigned didStartLoad : 1;
+    unsigned didFinishLoad : 1;
+    unsigned didFailLoadWithError : 1;
+    unsigned shouldStartLoad : 1;
+} _delegateHas;
+
+- (void)setDelegate:(id<UIWebViewDelegate>)delegate {
+    _delegate = delegate;
+    _delegateHas.didStartLoad = [_delegate respondsToSelector:@selector(webViewDidStartLoad:)];
+    _delegateHas.didFinishLoad = [_delegate respondsToSelector:@selector(webViewDidFinishLoad:)];
+    _delegateHas.didFailLoadWithError = [_delegate respondsToSelector:@selector(webView:didFailLoadWithError:)];
+    _delegateHas.shouldStartLoad = [_delegate respondsToSelector:@selector(webView:shouldStartLoadWithRequest:navigationType:)];
+}
+
 #pragma mark - Initialization
 
 - (id)initWithAddress:(NSString *)urlString {
@@ -285,19 +300,36 @@
 - (void)webViewDidStartLoad:(UIWebView *)webView {
 	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [self updateToolbarItems];
+    
+    if (_delegateHas.didStartLoad) {
+        [self.delegate webViewDidStartLoad:webView];
+    }
 }
 
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    if (_delegateHas.shouldStartLoad) {
+        [self.delegate webView:webView shouldStartLoadWithRequest:request navigationType:navigationType];
+    }
+}
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
 	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     
     self.navigationItem.title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
     [self updateToolbarItems];
+    
+    if (_delegateHas.didFinishLoad) {
+        [self.delegate webViewDidFinishLoad:webView];
+    }
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
 	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     [self updateToolbarItems];
+    
+    if (_delegateHas.didFailLoadWithError) {
+        [self.delegate webView:webView didFailLoadWithError:error];
+    }
 }
 
 #pragma mark - Target actions
