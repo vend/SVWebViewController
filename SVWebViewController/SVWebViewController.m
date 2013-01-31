@@ -41,27 +41,52 @@
 - (UIBarButtonItem *)backBarButtonItem {
     
     if (!backBarButtonItem) {
-        backBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"SVWebViewController.bundle/iPhone/back"] style:UIBarButtonItemStylePlain target:self action:@selector(goBackClicked:)];
+        backBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"SVWebViewController.bundle/iPhone/back"]
+                                                             style:UIBarButtonItemStylePlain
+                                                            target:nil
+                                                            action:nil];
         backBarButtonItem.imageInsets = UIEdgeInsetsMake(2.0f, 0.0f, -2.0f, 0.0f);
 		backBarButtonItem.width = 18.0f;
     }
+    
+    if (backBarButtonItem.target == nil && backBarButtonItem.action == nil) {
+        backBarButtonItem.target = self;
+        backBarButtonItem.action = @selector(goBackClicked:);
+    }
+    
     return backBarButtonItem;
 }
 
 - (UIBarButtonItem *)forwardBarButtonItem {
     
     if (!forwardBarButtonItem) {
-        forwardBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"SVWebViewController.bundle/iPhone/forward"] style:UIBarButtonItemStylePlain target:self action:@selector(goForwardClicked:)];
+        forwardBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"SVWebViewController.bundle/iPhone/forward"]
+                                                                style:UIBarButtonItemStylePlain
+                                                               target:nil
+                                                               action:nil];
         forwardBarButtonItem.imageInsets = UIEdgeInsetsMake(2.0f, 0.0f, -2.0f, 0.0f);
 		forwardBarButtonItem.width = 18.0f;
     }
+    
+    if (forwardBarButtonItem.target == nil && forwardBarButtonItem.action == nil) {
+        forwardBarButtonItem.target = self;
+        forwardBarButtonItem.action = @selector(goForwardClicked:);
+    }
+    
     return forwardBarButtonItem;
 }
 
 - (UIBarButtonItem *)refreshBarButtonItem {
     
     if (!refreshBarButtonItem) {
-        refreshBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(reloadClicked:)];
+        refreshBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
+                                                                             target:nil
+                                                                             action:nil];
+    }
+    
+    if (refreshBarButtonItem.target == nil && refreshBarButtonItem.action == nil) {
+        refreshBarButtonItem.target = self;
+        refreshBarButtonItem.action = @selector(reloadClicked:);
     }
     
     return refreshBarButtonItem;
@@ -70,16 +95,32 @@
 - (UIBarButtonItem *)stopBarButtonItem {
     
     if (!stopBarButtonItem) {
-        stopBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(stopClicked:)];
+        stopBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop
+                                                                          target:nil
+                                                                          action:nil];
     }
+    
+    if (stopBarButtonItem.target == nil && stopBarButtonItem.action == nil) {
+        stopBarButtonItem.target = self;
+        stopBarButtonItem.action = @selector(stopClicked:);
+    }
+    
     return stopBarButtonItem;
 }
 
 - (UIBarButtonItem *)actionBarButtonItem {
     
     if (!actionBarButtonItem) {
-        actionBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(actionButtonClicked:)];
+        actionBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
+                                                                            target:nil
+                                                                            action:nil];
     }
+    
+    if (actionBarButtonItem.target == nil && actionBarButtonItem.action == nil) {
+        actionBarButtonItem.target = self;
+        actionBarButtonItem.action = @selector(actionButtonClicked:);
+    }
+    
     return actionBarButtonItem;
 }
 
