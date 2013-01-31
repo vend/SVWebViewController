@@ -303,8 +303,9 @@ struct {
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     if (_delegateHas.shouldStartLoad) {
-        [self.delegate webView:webView shouldStartLoadWithRequest:request navigationType:navigationType];
+        return [self.delegate webView:webView shouldStartLoadWithRequest:request navigationType:navigationType];
     }
+    return YES;
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
